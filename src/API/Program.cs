@@ -1,5 +1,10 @@
-var builder = WebApplication.CreateBuilder(args);
+using EventHub.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Add services to the container.
 
 builder.Services.AddControllers();
